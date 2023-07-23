@@ -54,9 +54,17 @@ const styles = {
 export default function Card({emoji}) {
 
   useEffect(() => {
-    document.getElementById(emoji.htmlCode[0]).innerHTML = emoji.htmlCode[0];
-    document.getElementById(emoji.htmlCode[0]).style.opacity = 1;
-  }, []);
+    if(document.getElementById(emoji.htmlCode[0])) {
+      document.getElementById(emoji.htmlCode[0]).innerHTML = emoji.htmlCode[0];
+      document.getElementById(emoji.htmlCode[0]).style.opacity = 1;
+    }
+
+    return () => {
+      if(document.getElementById(emoji.htmlCode[0])) {
+        document.getElementById(emoji.htmlCode[0]).style.opacity = 0;
+      }
+    }
+  }, [emoji]);
 
   return (
     <div className={styles.cardContainer}>
